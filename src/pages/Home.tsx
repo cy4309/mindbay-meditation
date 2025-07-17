@@ -9,6 +9,7 @@ const Home: React.FC = () => {
   const [started, setStarted] = useState(false);
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
   const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [iframeReady, setIframeReady] = useState(false);
   // const [videoId, setVideoId] = useState("4Km786yl15U"); // The Best Mistake I've Ever Made
   const [videoId, setVideoId] = useState("jqWwmIuHZtc"); // 藍色小貨車
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -36,6 +37,7 @@ const Home: React.FC = () => {
 
   const handleStart = () => {
     setStarted(true);
+    setIframeReady(true); // 在互動中觸發
     const video = videoRef.current;
     if (video) {
       video.muted = false;
@@ -102,12 +104,14 @@ const Home: React.FC = () => {
             loop
             playsInline
           ></video>
-          <iframe
-            className="absolute w-0 h-0 top-[-9999px] left-[-9999px]"
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId}`}
-            allow="autoplay"
-            allowFullScreen
-          />
+          {iframeReady && (
+            <iframe
+              className="absolute w-0 h-0 top-[-9999px] left-[-9999px]"
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId}`}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          )}
         </div>
       )}
     </div>
