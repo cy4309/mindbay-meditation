@@ -42,10 +42,27 @@ const Home: React.FC = () => {
   const handleYoutubeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     setYoutubeUrl(url);
-    const match = url.match(/(?:\?|\&)v=([a-zA-Z0-9_-]{11})/);
-    if (match?.[1]) {
-      setVideoId(match[1]);
+
+    // 支援格式：
+    // https://www.youtube.com/watch?v=XXXXXXXXXXX
+    // https://youtu.be/XXXXXXXXXXX
+    const patterns = [
+      /(?:\?|\&)v=([a-zA-Z0-9_-]{11})/, // v=xxxxx
+      /youtu\.be\/([a-zA-Z0-9_-]{11})/, // youtu.be/xxxxx
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        setVideoId(match[1]);
+        break;
+      }
     }
+
+    // const match = url.match(/(?:\?|\&)v=([a-zA-Z0-9_-]{11})/);
+    // if (match?.[1]) {
+    //   setVideoId(match[1]);
+    // }
   };
 
   const handleStart = () => {
@@ -73,7 +90,7 @@ const Home: React.FC = () => {
   const audioSrc = mode && mode !== "youtube" ? `/audios/${mode}.mp3` : "";
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full min-h-[100dvh] flex items-center justify-center">
       {!started && (
         <div className="w-full gap-12 flex flex-col items-center">
           <div>
@@ -140,7 +157,7 @@ const Home: React.FC = () => {
               <video
                 ref={videoRef}
                 src={videoSrc}
-                className="w-screen h-screen object-cover"
+                className="w-full h-[100dvh] object-cover"
                 autoPlay
                 loop
                 playsInline
@@ -155,7 +172,7 @@ const Home: React.FC = () => {
               <video
                 ref={videoRef}
                 src={videoSrc}
-                className="w-screen h-screen object-cover"
+                className="w-full h-[100dvh] object-cover"
                 autoPlay
                 loop
                 playsInline
@@ -163,7 +180,7 @@ const Home: React.FC = () => {
               />
 
               <iframe
-                className="w-1/4 h-1/6 absolute top-10 left-4 opacity-20"
+                className="w-1/4 h-1/5 absolute top-10 left-4 opacity-20"
                 src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId}`}
                 allow="autoplay; encrypted-media"
                 allowFullScreen
