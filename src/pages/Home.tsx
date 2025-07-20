@@ -182,7 +182,7 @@ const Home: React.FC = () => {
                 loop
                 playsInline
                 muted
-                // preload="none"
+                preload="none"
               />
 
               <iframe
