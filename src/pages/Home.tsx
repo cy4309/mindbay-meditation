@@ -100,12 +100,16 @@ const Home: React.FC = () => {
             >
               M I N D B A Y
             </h1>
-            <p className="text-gray-300">Sound for your mind</p>
+            <p className="text-selected">sound for your mind</p>
           </div>
 
           <div className="flex flex-wrap gap-4 justify-center">
             {modes.map((m) => (
-              <BaseButton key={m} onClick={() => setMode(m)}>
+              <BaseButton
+                key={m}
+                onClick={() => setMode(m)}
+                className={mode === m ? "bg-selected text-black" : ""}
+              >
                 {m === "youtube"
                   ? "YouTube"
                   : m.charAt(0).toUpperCase() + m.slice(1)}
@@ -136,7 +140,7 @@ const Home: React.FC = () => {
 
           <div className="w-full flex justify-center items-center">
             <img src={cLogo} alt="cLogo" className="w-4 mr-2 opacity-10" />
-            <span className="text-xs text-gray-300">
+            <span className="text-xs text-selected">
               © 2025 CYC Studio. All rights reserved.
             </span>
           </div>
@@ -147,7 +151,7 @@ const Home: React.FC = () => {
         <div className="relative w-full h-full">
           <h1
             onClick={handleReset}
-            className="absolute z-50 top-4 left-4 text-white opacity-20 text-sm cursor-pointer"
+            className="absolute z-50 top-4 left-5 text-selected opacity-20 text-sm cursor-pointer"
           >
             M I N D B A Y
           </h1>
@@ -162,6 +166,7 @@ const Home: React.FC = () => {
                 loop
                 playsInline
                 muted
+                preload="none"
               />
               <audio ref={audioRef} src={audioSrc} loop />
             </>
@@ -177,10 +182,11 @@ const Home: React.FC = () => {
                 loop
                 playsInline
                 muted
+                // preload="none"
               />
 
               <iframe
-                className="w-1/4 h-1/5 absolute top-10 left-4 opacity-20"
+                className="w-1/4 h-1/5 absolute top-10 left-4 opacity-20 rounded-lg"
                 src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&loop=1&playlist=${videoId}`}
                 allow="autoplay; encrypted-media"
                 allowFullScreen
