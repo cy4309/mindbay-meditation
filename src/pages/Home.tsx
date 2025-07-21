@@ -151,7 +151,7 @@ const Home: React.FC = () => {
         <div className="relative w-full h-full">
           <h1
             onClick={handleReset}
-            className="absolute z-50 top-4 left-5 text-selected opacity-20 text-sm cursor-pointer"
+            className="absolute z-50 top-4 left-5 text-selected sm:text-black opacity-20 text-sm cursor-pointer"
           >
             M I N D B A Y
           </h1>
