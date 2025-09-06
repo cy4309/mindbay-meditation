@@ -164,7 +164,7 @@ const Home: React.FC = () => {
                 className="w-full h-[100dvh] object-cover"
                 autoPlay
                 loop
-                playsInline
+                playsInline // iOS必備屬性
                 muted
                 preload="none"
               />
